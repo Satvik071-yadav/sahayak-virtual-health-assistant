@@ -1,0 +1,17 @@
+# Updated for Python 3.13 compatibility (July 2026).
+# All packages below ship prebuilt wheels for cp313 on Windows/macOS/Linux,
+# so `pip install -r requirements.txt` no longer needs a Rust or C++ toolchain.
+fastapi==0.138.2
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+pydantic==2.13.4
+pydantic-settings==2.14.2
+python-jose[cryptography]==3.3.0
+bcrypt==4.2.1
+python-multipart==0.0.20
+python-dotenv==1.0.1
+openai==1.59.7
+slowapi==0.1.9
+alembic==1.14.1
+psycopg2-binary==2.9.12
+email-validator==2.2.0
