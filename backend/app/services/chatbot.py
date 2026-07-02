@@ -1,3 +1,4 @@
+#Test
 """
 Chatbot service.
 
@@ -18,9 +19,13 @@ from typing import List, Tuple
 from app.core.config import settings
 
 try:
-    from openai import OpenAI
+    from google import genai
 
-    _client = OpenAI(api_key=settings.OPENAI_API_KEY) if settings.OPENAI_API_KEY else None
+    _client = (
+    genai.Client(api_key=settings.GEMINI_API_KEY)
+    if settings.GEMINI_API_KEY
+    else None
+)
 except Exception:
     _client = None
 
@@ -129,13 +134,30 @@ def generate_reply(
     messages.append({"role": "user", "content": message})
 
     try:
-        completion = _client.chat.completions.create(
-            model=settings.OPENAI_MODEL,
-            messages=messages,
-            max_tokens=400,
-            temperature=0.4,
+        conversation = ""
+
+        for sender, content in history[-10:]:
+            if sender == "user":
+                conversation += f"User: {content}\n"
+            else:
+                conversation += f"Assistant: {content}\n"
+
+        conversation += f"User: {message}"
+
+        response = _client.models.generate_content(
+            model=settings.GEMINI_MODEL,
+            contents=f"""
+        {SYSTEM_PROMPT[language]}
+
+        Conversation:
+        {conversation}
+        """,
         )
-        reply = completion.choices[0].message.content.strip()
-        return reply, False
-    except Exception:
+
+        reply = response.text
+  
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        print("Gemini Error:", e)
         return FALLBACK_REPLIES[language], False
