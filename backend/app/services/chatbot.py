@@ -123,7 +123,8 @@ def generate_reply(
         # Always short-circuit to the safe emergency message - never let an
         # AI-generated response override an emergency detection.
         return EMERGENCY_REPLIES[language], True
-
+    
+    print("Gemini client initialized:", _client is not None)
     if _client is None:
         return FALLBACK_REPLIES[language], False
 
@@ -158,6 +159,6 @@ def generate_reply(
 
     except Exception as e:
         import traceback
+
         traceback.print_exc()
-        print("Gemini Error:", repr(e))
-        return FALLBACK_REPLIES[language], False
+        raise
