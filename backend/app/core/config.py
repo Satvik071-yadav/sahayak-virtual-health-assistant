@@ -19,7 +19,11 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str = ""
     GEMINI_MODEL: str = "gemini-2.5-flash"
 
-    CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
+    CORS_ORIGINS = (
+    "http://localhost:5173,"
+    "http://localhost:3000,"
+    "https://sahayak-frontend-9bdw.onrender.com"
+)
 
     @property
     def cors_origins_list(self) -> List[str]:

@@ -147,17 +147,17 @@ def generate_reply(
         response = _client.models.generate_content(
             model=settings.GEMINI_MODEL,
             contents=f"""
-        {SYSTEM_PROMPT[language]}
+    {SYSTEM_PROMPT[language]}
 
-        Conversation:
-        {conversation}
-        """,
-        )
+    Conversation:
+    {conversation}
+    """,
+    )
+        reply = response.text.strip()
+        return reply, False
 
-        reply = response.text
-  
     except Exception as e:
         import traceback
         traceback.print_exc()
-        print("Gemini Error:", e)
+        print("Gemini Error:", repr(e))
         return FALLBACK_REPLIES[language], False
