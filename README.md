@@ -77,7 +77,7 @@ uvicorn app.main:app --reload
 Backend runs at **http://localhost:8000**. Interactive API docs at
 **http://localhost:8000/docs**.
 
-Demo admin login: `admin@vha-health.example` / `Admin@123`
+
 
 ### 2. Frontend
 

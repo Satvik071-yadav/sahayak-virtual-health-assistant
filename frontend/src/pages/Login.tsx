@@ -153,7 +153,7 @@ export default function Login() {
             </Link>
           </p>
           <p className="mt-3 text-center text-xs text-ink-400">
-            Demo admin: admin@vha-health.example / Admin@123
+          
           </p>
         </motion.div>
       </div>
